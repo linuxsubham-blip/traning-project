@@ -1,54 +1,27 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\CoursesController;
 
-Route::get('/', function () {
-    return view('login');
-})->name('login');
-
-Route::post('/login', function () {
-    return redirect()->route('dashboard');
-})->name('login.post');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::get('/', [AdminController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AdminController::class, 'login'])->name('login.post');
+Route::get('/register', [AdminController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AdminController::class, 'register'])->name('register.post');
+Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
 
 Route::prefix('students')->name('students.')->group(function () {
-    Route::get('/', function () {
-        return view('student-list');
-    })->name('index');
-
-    Route::get('/add', function () {
-        return view('add-student');
-    })->name('create');
-
-    Route::post('/add', function () {
-        // Dummy insert logic
-        return redirect()->route('students.index');
-    })->name('store');
-
-    Route::get('/edit', function () {
-        return view('edit-student');
-    })->name('edit');
-
-    Route::post('/edit', function () {
-        // Dummy update logic
-        return redirect()->route('students.index');
-    })->name('update');
+    Route::get('/', [StudentController::class, 'index'])->name('index');
+    Route::get('/add', [StudentController::class, 'create'])->name('create');
+    Route::post('/add', [StudentController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [StudentController::class, 'edit'])->name('edit');
+    Route::post('/{id}/edit', [StudentController::class, 'update'])->name('update');
 });
 
 Route::prefix('courses')->name('courses.')->group(function () {
-    Route::get('/', function () {
-        return view('course-list');
-    })->name('index');
-
-    Route::get('/add', function () {
-        return view('add-course');
-    })->name('create');
-
-    Route::post('/add', function () {
-        // Dummy insert logic
-        return redirect()->route('courses.index');
-    })->name('store');
+    Route::get('/', [CoursesController::class, 'index'])->name('index');
+    Route::get('/add', [CoursesController::class, 'create'])->name('create');
+    Route::post('/add', [CoursesController::class, 'store'])->name('store');
 });

@@ -18,9 +18,9 @@
             <h2 class="text-2xl font-bold">SchoolAdmin</h2>
         </div>
         <nav class="flex-1 px-4 space-y-2">
-            <a href="#" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Dashboard</a>
-            <a href="#" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Students</a>
-            <a href="#" class="block px-4 py-3 bg-indigo-900 rounded-lg font-medium">Courses</a>
+            <a href="{{ route('dashboard') }}" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Dashboard</a>
+            <a href="{{ route('students.index') }}" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Students</a>
+            <a href="{{ route('courses.index') }}" class="block px-4 py-3 bg-indigo-900 rounded-lg font-medium">Courses</a>
         </nav>
     </aside>
 
@@ -32,71 +32,36 @@
         <div class="p-8">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">All Courses</h2>
-                <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium shadow-sm transition-colors">
+                <a href="{{ route('courses.create') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium shadow-sm transition-colors">
                     + Add New Course
                 </a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Course Card -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
-                    <div class="h-32 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-lg font-bold text-gray-800">Computer Science</h3>
-                            <span class="bg-blue-100 text-blue-700 py-1 px-2 rounded-full text-xs font-bold">CS101</span>
-                        </div>
-                        <p class="text-gray-500 text-sm mb-4">Introduction to programming, algorithms, and data structures.</p>
-                        
-                        <div class="flex justify-between items-center text-sm border-t border-gray-100 pt-4">
-                            <span class="text-gray-600"><span class="font-bold text-gray-800">120</span> Enrolled</span>
-                            <div class="space-x-2">
-                                <button class="text-indigo-600 hover:text-indigo-800 font-medium">Edit</button>
-                                <button class="text-red-500 hover:text-red-700 font-medium">Delete</button>
+                @foreach($courses as $course)
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+                        <div class="h-32 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-lg font-bold text-gray-800">{{ $course['name'] }}</h3>
+                                <span class="bg-blue-100 text-blue-700 py-1 px-2 rounded-full text-xs font-bold">{{ $course['code'] }}</span>
+                            </div>
+                            <p class="text-gray-500 text-sm mb-4">
+                                {{ $course['description'] ?? 'No description available.' }}
+                            </p>
+                            
+                            <div class="flex justify-between items-center text-sm border-t border-gray-100 pt-4">
+                                <span class="text-gray-600">
+                                    <span class="font-bold text-gray-800">{{ $course['duration_months'] ?? '-' }}</span> Months
+                                </span>
+                                <div class="space-x-2">
+                                    <button class="text-indigo-600 hover:text-indigo-800 font-medium">Edit</button>
+                                    <button class="text-red-500 hover:text-red-700 font-medium">Delete</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Course Card -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
-                    <div class="h-32 bg-gradient-to-r from-emerald-400 to-teal-500"></div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-lg font-bold text-gray-800">Mathematics</h3>
-                            <span class="bg-teal-100 text-teal-700 py-1 px-2 rounded-full text-xs font-bold">MATH201</span>
-                        </div>
-                        <p class="text-gray-500 text-sm mb-4">Calculus, linear algebra, and discrete mathematics essentials.</p>
-                        
-                        <div class="flex justify-between items-center text-sm border-t border-gray-100 pt-4">
-                            <span class="text-gray-600"><span class="font-bold text-gray-800">85</span> Enrolled</span>
-                            <div class="space-x-2">
-                                <button class="text-indigo-600 hover:text-indigo-800 font-medium">Edit</button>
-                                <button class="text-red-500 hover:text-red-700 font-medium">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Course Card -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
-                    <div class="h-32 bg-gradient-to-r from-amber-400 to-orange-500"></div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-lg font-bold text-gray-800">Physics</h3>
-                            <span class="bg-orange-100 text-orange-700 py-1 px-2 rounded-full text-xs font-bold">PHY101</span>
-                        </div>
-                        <p class="text-gray-500 text-sm mb-4">Mechanics, thermodynamics, and electromagnetism fundamentals.</p>
-                        
-                        <div class="flex justify-between items-center text-sm border-t border-gray-100 pt-4">
-                            <span class="text-gray-600"><span class="font-bold text-gray-800">64</span> Enrolled</span>
-                            <div class="space-x-2">
-                                <button class="text-indigo-600 hover:text-indigo-800 font-medium">Edit</button>
-                                <button class="text-red-500 hover:text-red-700 font-medium">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </main>

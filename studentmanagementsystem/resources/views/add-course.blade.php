@@ -18,9 +18,9 @@
             <h2 class="text-2xl font-bold">SchoolAdmin</h2>
         </div>
         <nav class="flex-1 px-4 space-y-2">
-            <a href="#" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Dashboard</a>
-            <a href="#" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Students</a>
-            <a href="#" class="block px-4 py-3 bg-indigo-900 rounded-lg font-medium">Courses</a>
+            <a href="{{ route('dashboard') }}" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Dashboard</a>
+            <a href="{{ route('students.index') }}" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Students</a>
+            <a href="{{ route('courses.index') }}" class="block px-4 py-3 bg-indigo-900 rounded-lg font-medium">Courses</a>
         </nav>
     </aside>
 
@@ -43,28 +43,28 @@
                     @csrf
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Course Name</label>
-                        <input type="text" placeholder="e.g. Introduction to Programming" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
+                        <input type="text" name="name" placeholder="e.g. Introduction to Programming" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Course Code</label>
-                            <input type="text" placeholder="e.g. CS101" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none font-mono uppercase" required>
+                            <input type="text" name="code" placeholder="e.g. CS101" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none font-mono uppercase" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Duration (Months)</label>
-                            <input type="number" min="1" placeholder="e.g. 6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                            <input type="number" name="duration_months" min="1" placeholder="e.g. 6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
                         </div>
                     </div>
 
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Instructor</label>
-                        <input type="text" placeholder="e.g. Dr. Alan Turing" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        <input type="text" name="instructor" placeholder="e.g. Dr. Alan Turing" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
                     </div>
 
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Course Description</label>
-                        <textarea rows="4" placeholder="Brief outline of the course syllabus..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"></textarea>
+                        <textarea name="description" rows="4" placeholder="Brief outline of the course syllabus..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"></textarea>
                     </div>
 
                     <div class="mb-6 border border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center bg-gray-50">

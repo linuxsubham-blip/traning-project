@@ -18,9 +18,9 @@
             <h2 class="text-2xl font-bold">SchoolAdmin</h2>
         </div>
         <nav class="flex-1 px-4 space-y-2">
-            <a href="#" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Dashboard</a>
-            <a href="#" class="block px-4 py-3 bg-indigo-900 rounded-lg font-medium">Students</a>
-            <a href="#" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Courses</a>
+            <a href="{{ route('dashboard') }}" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Dashboard</a>
+            <a href="{{ route('students.index') }}" class="block px-4 py-3 bg-indigo-900 rounded-lg font-medium">Students</a>
+            <a href="{{ route('courses.index') }}" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Courses</a>
         </nav>
     </aside>
 
@@ -44,38 +44,38 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                            <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
+                            <input type="text" name="first_name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                            <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
+                            <input type="text" name="last_name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                            <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
+                            <input type="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                            <input type="tel" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                            <input type="tel" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
-                            <input type="date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                            <input type="date" name="dob" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Select Course</label>
-                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                            <select name="course" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
                                 <option value="">-- Choose Course --</option>
-                                <option>Computer Science</option>
-                                <option>Mathematics</option>
-                                <option>Physics</option>
+                                @foreach($courses as $course)
+                                    <option value="{{ $course }}">{{ $course }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
 
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                        <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"></textarea>
+                        <textarea name="address" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"></textarea>
                     </div>
 
                     <div class="flex justify-end space-x-4 border-t border-gray-100 pt-6">

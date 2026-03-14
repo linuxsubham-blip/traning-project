@@ -18,12 +18,17 @@
             <h2 class="text-2xl font-bold">SchoolAdmin</h2>
         </div>
         <nav class="flex-1 px-4 space-y-2">
-            <a href="#" class="block px-4 py-3 bg-indigo-900 rounded-lg font-medium">Dashboard</a>
-            <a href="#" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Students</a>
-            <a href="#" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Courses</a>
+            <a href="{{ route('dashboard') }}" class="block px-4 py-3 bg-indigo-900 rounded-lg font-medium">Dashboard</a>
+            <a href="{{ route('students.index') }}" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Students</a>
+            <a href="{{ route('courses.index') }}" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Courses</a>
         </nav>
         <div class="p-4 border-t border-indigo-700">
-            <a href="#" class="block px-4 py-2 hover:bg-indigo-700 rounded-lg font-medium transition-colors text-indigo-200">Logout</a>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="w-full text-left px-4 py-2 hover:bg-indigo-700 rounded-lg font-medium transition-colors text-indigo-200">
+                    Logout
+                </button>
+            </form>
         </div>
     </aside>
 

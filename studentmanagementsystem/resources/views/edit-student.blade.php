@@ -18,16 +18,16 @@
             <h2 class="text-2xl font-bold">SchoolAdmin</h2>
         </div>
         <nav class="flex-1 px-4 space-y-2">
-            <a href="#" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Dashboard</a>
-            <a href="#" class="block px-4 py-3 bg-indigo-900 rounded-lg font-medium">Students</a>
-            <a href="#" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Courses</a>
+            <a href="{{ route('dashboard') }}" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Dashboard</a>
+            <a href="{{ route('students.index') }}" class="block px-4 py-3 bg-indigo-900 rounded-lg font-medium">Students</a>
+            <a href="{{ route('courses.index') }}" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Courses</a>
         </nav>
     </aside>
 
     <main class="flex-1 overflow-y-auto">
         <header class="bg-white shadow-sm px-8 py-4 flex items-center justify-between">
             <div class="flex items-center space-x-2">
-                <a href="#" class="text-gray-500 hover:text-indigo-600 transition-colors">Students</a>
+                <a href="{{ route('students.index') }}" class="text-gray-500 hover:text-indigo-600 transition-colors">Students</a>
                 <span class="text-gray-400">/</span>
                 <h1 class="text-xl font-semibold text-gray-800">Edit Student</h1>
             </div>
@@ -36,50 +36,52 @@
         <div class="p-8 max-w-4xl mx-auto">
             <div class="bg-white rounded-xl shadow-sm overflow-hidden">
                 <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center">
-                    <span class="text-lg font-semibold text-gray-800">Edit Information - STU-001</span>
-                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase">Active</span>
+                    <span class="text-lg font-semibold text-gray-800">Edit Information - {{ $student['id'] }}</span>
+                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase">
+                        {{ ucfirst($student['status']) }}
+                    </span>
                 </div>
 
-                <form action="{{ route('students.update') }}" method="POST" class="p-8">
+                <form action="{{ route('students.update', $student['id']) }}" method="POST" class="p-8">
                     @csrf
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                            <input type="text" value="John" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
+                            <input type="text" name="first_name" value="{{ $student['first_name'] }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                            <input type="text" value="Smith" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
+                            <input type="text" name="last_name" value="{{ $student['last_name'] }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                            <input type="email" value="john.smith@example.com" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
+                            <input type="email" name="email" value="{{ $student['email'] }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                            <input type="tel" value="+1 (555) 123-4567" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                            <input type="tel" name="phone" value="{{ $student['phone'] }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Select Course</label>
-                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
-                                <option>Computer Science</option>
-                                <option>Mathematics</option>
-                                <option>Physics</option>
+                            <select name="course" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                                @foreach($courses as $course)
+                                    <option value="{{ $course }}" @if($course === $student['course']) selected @endif>{{ $course }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                                <option value="graduated">Graduated</option>
+                            <select name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                                <option value="active" @if($student['status'] === 'active') selected @endif>Active</option>
+                                <option value="inactive" @if($student['status'] === 'inactive') selected @endif>Inactive</option>
+                                <option value="graduated" @if($student['status'] === 'graduated') selected @endif>Graduated</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                        <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">123 College Ave, University Town, ST 12345</textarea>
+                        <textarea name="address" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">{{ $student['address'] }}</textarea>
                     </div>
 
                     <div class="flex justify-end space-x-4 border-t border-gray-100 pt-6">

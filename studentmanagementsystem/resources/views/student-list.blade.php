@@ -18,9 +18,9 @@
             <h2 class="text-2xl font-bold">SchoolAdmin</h2>
         </div>
         <nav class="flex-1 px-4 space-y-2">
-            <a href="#" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Dashboard</a>
-            <a href="#" class="block px-4 py-3 bg-indigo-900 rounded-lg font-medium">Students</a>
-            <a href="#" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Courses</a>
+            <a href="{{ route('dashboard') }}" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Dashboard</a>
+            <a href="{{ route('students.index') }}" class="block px-4 py-3 bg-indigo-900 rounded-lg font-medium">Students</a>
+            <a href="{{ route('courses.index') }}" class="block px-4 py-3 hover:bg-indigo-700 rounded-lg font-medium transition-colors">Courses</a>
         </nav>
     </aside>
 
@@ -32,7 +32,7 @@
         <div class="p-8">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">All Students</h2>
-                <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium shadow-sm transition-colors">
+                <a href="{{ route('students.create') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium shadow-sm transition-colors">
                     + Add New Student
                 </a>
             </div>
@@ -57,26 +57,18 @@
                         </tr>
                     </thead>
                     <tbody class="text-gray-700 text-sm">
-                        <tr class="border-b border-gray-50 hover:bg-gray-50">
-                            <td class="py-3 px-6 font-medium text-gray-500">#STU-001</td>
-                            <td class="py-3 px-6 font-medium">John Smith</td>
-                            <td class="py-3 px-6">john.smith@example.com</td>
-                            <td class="py-3 px-6">Computer Science</td>
-                            <td class="py-3 px-6 text-right space-x-2">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">Edit</a>
-                                <button class="text-red-500 hover:text-red-700 font-medium">Delete</button>
-                            </td>
-                        </tr>
-                        <tr class="border-b border-gray-50 hover:bg-gray-50">
-                            <td class="py-3 px-6 font-medium text-gray-500">#STU-002</td>
-                            <td class="py-3 px-6 font-medium">Emily Davis</td>
-                            <td class="py-3 px-6">emily.d@example.com</td>
-                            <td class="py-3 px-6">Mathematics</td>
-                            <td class="py-3 px-6 text-right space-x-2">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium">Edit</a>
-                                <button class="text-red-500 hover:text-red-700 font-medium">Delete</button>
-                            </td>
-                        </tr>
+                        @foreach($students as $student)
+                            <tr class="border-b border-gray-50 hover:bg-gray-50">
+                                <td class="py-3 px-6 font-medium text-gray-500">#{{ $student['id'] }}</td>
+                                <td class="py-3 px-6 font-medium">{{ $student['first_name'] }} {{ $student['last_name'] }}</td>
+                                <td class="py-3 px-6">{{ $student['email'] }}</td>
+                                <td class="py-3 px-6">{{ $student['course'] }}</td>
+                                <td class="py-3 px-6 text-right space-x-2">
+                                    <a href="{{ route('students.edit', $student['id']) }}" class="text-indigo-600 hover:text-indigo-800 font-medium">Edit</a>
+                                    <button class="text-red-500 hover:text-red-700 font-medium">Delete</button>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 <div class="px-6 py-4 border-t border-gray-100 text-sm text-gray-500 flex justify-between items-center">
